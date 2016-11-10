@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/layouts">
+	<excludes>
+		<!--修改排除需要重启servlet,sitemesh 默认只处理html格式,以下非html不用过滤
+		<pattern>/images/*</pattern>
+		<pattern>/styles/*</pattern>
+		<pattern>/js/*</pattern>
+		<pattern>/css/*</pattern> 
+		-->
+		<pattern>/html/*</pattern>
+		<pattern>/*.get*</pattern>
+	</excludes>
+	<decorator name="no" page="">
+		<pattern>/no-sitemesh/*</pattern>
+	</decorator>
+	<decorator name="unsignin" page="model-dev.jsp">
+		<pattern>/signin</pattern>
+		<pattern>/signup</pattern>
+		<pattern>/</pattern>
+	</decorator>
+	<decorator name="signined" page="model-dev.jsp">
+		<pattern>/metadata/*</pattern>
+		<pattern>/user/*</pattern>
+		<pattern>/test/*</pattern>
+	</decorator>
+
+</decorators>

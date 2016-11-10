@@ -1,0 +1,16 @@
+#This file should gain executable power before commit
+#!/bin/sh
+TRAGET="/home/web1/java/data-analysis"
+GIT_DIR="/opt/git/data-analysis.git"
+BRANCH="master"
+while read oldrev newrev ref
+do
+	if [[ $ref = refs/heads/$BRANCH ]];
+	then
+		echo "Ref $ref received. Deploying ${BRANCH} branch to production..."
+		git --work-tree=$TRAGET --git-dir=$GIT_DIR checkout -f
+		cd $TRAGET && ./hookedbygit.sh
+	else
+		echo "Ref $ref received. Doing nothing: only the ${BRANCH} branch may be deployed on this server."
+	fi
+done
