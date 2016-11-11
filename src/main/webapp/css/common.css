@@ -114,16 +114,20 @@
 .nav-tabs-border {
   margin-bottom: 0;
 }
-.full-td {
-  white-space: normal;
-  text-overflow: initial;
-  overflow: visible;
-  word-wrap: break-word;
+.full-td table {
+  table-layout: fixed;
+}
+.full-td table td,
+.full-td th {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .auto-td {
   overflow-x: scroll;
 }
-.auto-td table td {
+.auto-td table td,
+.auto-td th {
   white-space: nowrap;
 }
 .clear-both {

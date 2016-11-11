@@ -3,7 +3,7 @@ function subject_data(){
 	}
 }
 function entity_data(){
-	return {items:[], attributes:[], 
+	return {items:[], attributes:[], isFull:1,
 		entity_id:"", entity_name:"", database_id:"", schema:"", table_name:"", table_desc:""}
 }
 Vue.component('entity-form', {
@@ -77,8 +77,8 @@ template : `
 			</button>
 		</div>
 		<div class="pull-right btn-group-sm">
-			<button class="btn btn-default full-btn" type="button">
-				<i class="glyphicon glyphicon-asterisk"></i>
+			<button class="btn btn-default full-btn" type="button" @click="isFull^=1">
+				<i class="glyphicon" v-bind:class="isFull ? 'glyphicon-resize-full' : 'glyphicon-resize-small'"></i>
 			</button>
 		</div>
 		<div class="pull-right dropdown btn-group-sm">
@@ -91,8 +91,8 @@ template : `
 		</div>
 		<div class="clear-both"></div>
 	</div>
-	<div class="panel-body auto-td">
-		<vue-table :comp-items="items" :comp-attributes="attributes"
+	<div class="panel-body">
+		<vue-table :is-full="isFull" :comp-items="items" :comp-attributes="attributes"
 			:comp-update=modify_entity :comp-delete=delete_entity
 			oper-title="操作" v-bind:operation="6"></vue-table>
 		<vue-page ref="entity_page" v-bind:is-sm=true :get-data="get_entity"></vue-page>

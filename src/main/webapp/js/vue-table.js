@@ -1,5 +1,6 @@
 Vue.component('vue-table', {
 	template : `
+<div v-bind:class="isFull ? 'full-td' : 'auto-td'">
 	<table class="table table-bordered table-striped table-condensed">
 	<thead>
 		<tr>
@@ -23,7 +24,8 @@ Vue.component('vue-table', {
 			
 		</tr>
 	</tbody>
-</table>`,
+	</table>
+</div>`,
 	props : {
 		compItems : Array,
 		compAttributes : Array,
@@ -32,7 +34,8 @@ Vue.component('vue-table', {
 		compDelete : Function,
 		compOk : Function,
 		operation:Number,
-		operTitle:String
+		operTitle:String,
+		isFull:Number
 	},
 	methods : {
 		getHtml : function(data, html){

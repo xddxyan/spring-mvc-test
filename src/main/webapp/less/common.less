@@ -134,17 +134,17 @@
 }
 
 .fulltd () {
-	white-space: normal;
-	text-overflow: initial;
-	overflow: visible;
-	word-wrap: break-word;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;	
 }
 .full-td {
-	.fulltd ();
+	table {table-layout: fixed;}
+	table td,th {.fulltd ();}
 }
 .auto-td {
 	overflow-x : scroll;
-	table td{white-space: nowrap;}
+	table td,th {white-space: nowrap;}
 }
 .clear-both {
 	clear:both;
