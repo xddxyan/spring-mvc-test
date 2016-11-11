@@ -168,21 +168,21 @@ template : `
 
 const VueSubject = {
 	template: `
-<div class="row">
+<div class="row padding-top15">
 	<div class="col-md-3">
-	<div class="operations margin-between15 " >
-		<button type="button" class="btn btn-success btn-sm" @click="create_node">
+	<div class="margin-between15 input-group input-group-sm">
+      	<span class="input-group-btn">
+		<button type="button" class="btn btn-success " @click="create_node">
 			<i class="glyphicon glyphicon-asterisk"></i>
 		</button>
-		<button type="button" class="btn btn-warning btn-sm" @click="rename_node">
+		<button type="button" class="btn btn-warning " @click="rename_node">
 			<i class="glyphicon glyphicon-pencil"></i>
 		</button>
-		<button type="button" class="btn btn-danger btn-sm" @click="delete_node">
+		<button type="button" class="btn btn-danger " @click="delete_node">
 			<i class="glyphicon glyphicon-remove"></i>
 		</button>
-	</div>
-	<div class=" margin-between15 ">
-		<input type="text" value="" id="search_input" placeholder="Search" />
+		</span>
+		<input type="text" value="" id="search_input" placeholder="Search" class="form-control"/>
 	</div>
 	<div class=" margin-between15" id="js-tree"></div>
 	</div>
