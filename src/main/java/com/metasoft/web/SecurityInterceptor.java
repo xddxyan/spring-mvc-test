@@ -53,7 +53,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 			//ModelAndView mav = new ModelAndView("unsigned");
 			//throw new ModelAndViewDefiningException(mav);
 			/*3,simple and brutal way*/
-			if(request.getMethod().equals(RequestMethod.POST.name())){
+			if(request.getMethod().equals(RequestMethod.POST.name())||url.indexOf(".get")>0){
 				response.setCharacterEncoding("UTF-8");
 				response.setContentType("text/plain;charset=UTF-8");//"text/html"将会被sitemesh过滤
 				response.getWriter().write("session.expired");
