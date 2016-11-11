@@ -3,12 +3,16 @@ Vue.component('vue-table', {
 <div v-bind:class="isFull ? 'full-td' : 'auto-td'">
 	<table class="table table-bordered table-striped table-condensed">
 	<thead>
-		<tr>
-			<th v-if="null!=compAttributes" v-for="attribute in compAttributes">{{attribute.desc}}</th>
+		<tr v-if="compAttributes.length">
+			<th v-for="attribute in compAttributes">{{attribute.desc}}</th>
+			
 			<th v-if="operation" class="text-center oper-th">{{operTitle}}</th>
 		</tr>
+		<tr v-else>
+			<th v-for="column in getRawColumns()">{{column}}</th>
+		</tr>
 	</thead>
-	<tbody>
+	<tbody v-if="compAttributes.length">
 		<tr v-for="item in compItems">
 			<td v-for="attribute in compAttributes">
 				<span v-if="null!=attribute.html" v-html="getHtml(item.data[attribute.attr], attribute.html)"></span>
@@ -17,11 +21,15 @@ Vue.component('vue-table', {
 			
 			<td v-if="operation" class="text-center">
 				<a class="glyphicon glyphicon-search font-md" href="javascript:void(0)" v-if="operation&1" @click="compView(item)"></a>
-				<a class="glyphicon glyphicon-pencil font-md" href="javascript:void(0)" v-if="operation&2" @click="on_update(item)"></a>
-				<a class="glyphicon glyphicon-remove font-md" href="javascript:void(0)" v-if="operation&4" @click="on_delete(item)"></a>
+				<a class="glyphicon glyphicon-pencil font-md" href="javascript:void(0)" v-if="operation&2" @click="compUpdate(item)"></a>
+				<a class="glyphicon glyphicon-remove font-md" href="javascript:void(0)" v-if="operation&4" @click="compDelete(item)"></a>
 				<a class="glyphicon glyphicon-ok font-md" href="javascript:void(0)" v-if="operation&8" @click="compOk(item)"></a>
 			</td>
-			
+		</tr>
+	</tbody>
+	<tbody v-else>
+		<tr v-for="item in compItems">
+			<td v-for="(value,key) in item">{{value}}</td>
 		</tr>
 	</tbody>
 	</table>
@@ -49,14 +57,12 @@ Vue.component('vue-table', {
 				return data[attr];
 			return '';
 		},
-		on_update : function(item){
-			if(this.compUpdate)
-				this.compUpdate(item);
-		},
-		on_delete : function(item){
-			if(this.compDelete)
-				this.compDelete(item);
+		getRawColumns(){
+			var columns = []
+			if(this.compItems&&this.compItems.length){
+				for ( var col in this.compItems[0]) { columns.push(col) }
+			}
+			return columns
 		}
-		
 	}
 })
