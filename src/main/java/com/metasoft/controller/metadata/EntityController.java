@@ -29,10 +29,11 @@ public class EntityController {
 	private EntityDaoService entityDaoService;
 
 	@RequestMapping(value = "/entity.get", method = RequestMethod.GET)
-	public @ResponseBody Map<String, Object> entityList(@RequestParam(value = "page", required = false) Integer number) {
-		Page page = new Page(number==null?1:number, Constant.PAGE_SIZE);
+	public @ResponseBody Map<String, Object> entityList(@RequestParam(value = "pageNum", required = false) Integer pageNum) {
+		Page page = new Page(pageNum==null?1:pageNum, 2);//Constant.PAGE_SIZE
 		List<Entity> list = entityDaoService.selectPageByIdAsc(page);	
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("page", page);
 		map.put("items", list);
 		map.put("attributes", DbUtil.GetAttrList(Entity.class));
 		return map;

@@ -93,7 +93,7 @@ template : `
 	</div>
 	<div class="panel-body auto-td">
 		<vue-table :comp-items="items" :comp-attributes="attributes"></vue-table>
-		<vue-page ref="entity_page" v-bind:page-size=3 v-bind:is-sm=true></vue-page>
+		<vue-page ref="entity_page" v-bind:is-sm=true :get-data="get_entity"></vue-page>
 	</div>
 	
 	<vue-modal lg=true footer-hidden=true modal-id='new-entity' >
@@ -106,15 +106,19 @@ template : `
 `,
 	data : entity_data ,
 	mounted : function(){
-		var thiscomp = this;
-		$.get('/meta-data/entity.get', GetCallback(function(data){
-			thiscomp.attributes = data.attributes
-			thiscomp.items = data.items
-		}))
-		this.$refs.entity_page.total=100;
-		this.$refs.entity_page.gotoPage(1);
+		this.get_entity(1)
 	},
 	methods : {
+		get_entity:function(pageNum){
+			var thiscomp = this;
+			$.get('/meta-data/entity.get', {'pageNum':pageNum}, GetCallback(function(data){
+				thiscomp.attributes = data.attributes
+				thiscomp.items = data.items
+				thiscomp.$refs.entity_page.total=data.page.total;
+				thiscomp.$refs.entity_page.pageSize=data.page.limit;
+				thiscomp.$refs.entity_page.setPage(data.page.number);
+			}))
+		},
 		new_entity:function(){
 			$("#new-entity").modal('show')
 		},

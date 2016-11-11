@@ -17,12 +17,12 @@ Vue.component('vue-page', {
 </nav>
 `,
 	props : {
-		pageSize:Number,
-		isSm:Boolean
+		isSm:Boolean, getData:Function
 	},
 	data:function(){return {
 		isFirstPage:false,
 		isEndPage:false,
+		pageSize:0,
 		pages:[],
 		total:0,
 		curPage:0
@@ -30,8 +30,10 @@ Vue.component('vue-page', {
 	methods : {
 		gotoPage:function(pg){
 			var reg = /^-?\d+$/;
-			if(reg.test(pg))
-				this.update(pg);
+			if(reg.test(pg)){
+				this.getData(pg)
+				this.setPage(pg)
+			}
 		},
 		getPages:function(){
 			this.pages = [];
@@ -45,7 +47,7 @@ Vue.component('vue-page', {
 		getTotalPageNum:function(){
 			return Math.ceil(this.total / this.pageSize);
 		},
-		update:function(curpage){
+		setPage:function(curpage){
 			this.curPage = curpage;
 			this.isFirstPage = this.curPage>1;
 			this.isEndPage = this.curPage<this.getTotalPageNum();
