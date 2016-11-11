@@ -50,4 +50,10 @@ public class EntityController {
 		entityDaoService.update(entity);
 		return "ok";
 	}
+	@RequestMapping(value = "/entity.del", method = RequestMethod.POST)
+	public @ResponseBody String entityChange(HttpServletRequest request,HttpServletResponse response,
+			@RequestParam(value = "entity_id", required = true) String entity_id) {
+		entityDaoService.deleteById(entity_id);
+		return "ok";
+	}
 }

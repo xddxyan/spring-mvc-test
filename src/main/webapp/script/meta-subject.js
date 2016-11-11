@@ -50,7 +50,7 @@ Vue.component('entity-form', {
 
 	<div class="form-group">
 	<div class=" col-md-12 text-center">
-		<button type="submit" class="btn btn-default" >保存</button>
+		<button type="submit" class="btn btn-default">保存</button>
 		<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 	</div>
 	</div>
@@ -92,7 +92,9 @@ template : `
 		<div class="clear-both"></div>
 	</div>
 	<div class="panel-body auto-td">
-		<vue-table :comp-items="items" :comp-attributes="attributes"></vue-table>
+		<vue-table :comp-items="items" :comp-attributes="attributes"
+			:comp-update=modify_entity :comp-delete=delete_entity
+			oper-title="操作" v-bind:operation="6"></vue-table>
 		<vue-page ref="entity_page" v-bind:is-sm=true :get-data="get_entity"></vue-page>
 	</div>
 	
@@ -100,6 +102,12 @@ template : `
 		<h4 slot="title">新增实体：</h4>
 		<div slot="body">
 			<entity-form :on-submit="new_entity_post"></entity-form>
+		</div>
+	</vue-modal>
+	<vue-modal lg=true footer-hidden=true modal-id='modify-entity' >
+		<h4 slot="title">修改实体：</h4>
+		<div slot="body">
+			<entity-form :on-submit="modify_entity_post" ref="modify_entity_form"></entity-form>
 		</div>
 	</vue-modal>
 </div>
@@ -122,16 +130,46 @@ template : `
 		new_entity:function(){
 			$("#new-entity").modal('show')
 		},
+		modify_entity:function(item){
+			$("#modify-entity").modal('show')
+			this.$refs.modify_entity_form.update(item)
+		},
+		delete_entity:function(item){
+			var thiscomp = this
+			$.post("/meta-data/entity.del", {"entity_id":item.entity_id}, function(data){
+				if('ok'==data){
+					VueAlert.Success('删除成功')
+					thiscomp.$refs.entity_page.refreshPage()
+				}else{
+					VueAlert.Warning(data)
+				}
+			})
+		},
 		new_entity_post:function(event){
-			var data = $(event.target).serialize();
+			var thiscomp = this
+			var data = $(event.target).serialize()
 			$.post("/meta-data/entity.add", data, function(data){
 				if('ok'==data){
-					VueAlert.Success('添加成功');
-					Reload();
+					VueAlert.Success('添加成功')
+					thiscomp.$refs.entity_page.refreshPage()
+				}else{
+					VueAlert.Warning(data)
+				}
+			})
+			$("#new-entity").modal('hide')
+		},
+		modify_entity_post:function(event){
+			var thiscomp = this
+			var data = $(event.target).serialize()
+			$.post("/meta-data/entity.change", data, function(data){
+				if('ok'==data){
+					VueAlert.Success('修改成功');
+					thiscomp.$refs.entity_page.refreshPage()
 				}else{
 					VueAlert.Warning(data);
 				}
-			});
+			})
+			$("#modify-entity").modal('hide')
 		}
 	}
 })
