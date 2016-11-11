@@ -3,12 +3,9 @@ package com.metasoft.service;
 import java.util.Base64;
 import java.util.regex.Pattern;
 
-import javax.servlet.http.Cookie;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.metasoft.model.Constant;
 import com.metasoft.model.Session;
 import com.metasoft.model.User;
 import com.metasoft.model.exception.GeneralException;
