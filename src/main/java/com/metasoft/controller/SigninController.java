@@ -52,8 +52,8 @@ public class SigninController {
 	public @ResponseBody String signinpost(@RequestParam(kUsername) String username, 
 			@RequestParam(kPassword) String password,
 			@RequestHeader(value = "X-Real-IP", defaultValue = "127.0.0.1") String ip, 
-			HttpServletResponse response) {
-		String sid = sessionService.getSessionId();
+			HttpServletRequest request, HttpServletResponse response) {
+		String sid = request.getRequestedSessionId();
 		User user = userService.authenticate(username, password, sid);
 		if (user == null) {
 			return "null";

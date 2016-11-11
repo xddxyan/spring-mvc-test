@@ -13,7 +13,7 @@
 	<script type="text/javascript" src="/plugins/jquery-1.12.4.js"></script><!-- for ie6~8 support -->
 	<script type="text/javascript" src="/plugins/vue.js"></script>
 	<script type="text/javascript" src="/plugins/vue-router.min.js"></script>
-	<script type="text/javascript" src="/plugins/jstree/jstree.js"></script>
+	<script type="text/javascript" src="/plugins/jstree/jstree.min.js"></script>
 	<script type="text/javascript" src="/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/plugins/lodash.min.js"></script>
 	
