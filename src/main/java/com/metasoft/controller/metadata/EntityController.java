@@ -29,7 +29,8 @@ public class EntityController {
 	private EntityDaoService entityDaoService;
 
 	@RequestMapping(value = "/entity.get", method = RequestMethod.GET)
-	public @ResponseBody Map<String, Object> entityList(@RequestParam(value = "pageNum", required = false) Integer pageNum) {
+	public @ResponseBody Map<String, Object> entityList(
+			@RequestParam(value = "pageNum", required = false) Integer pageNum) {
 		Page page = new Page(pageNum==null?1:pageNum, 2);//Constant.PAGE_SIZE
 		List<Entity> list = entityDaoService.selectPageByIdAsc(page);	
 		Map<String, Object> map = new HashMap<String, Object>();

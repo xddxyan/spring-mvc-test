@@ -71,23 +71,15 @@ template : `
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title pull-left">参数实体列表</h3>
-		<div class="pull-right btn-group-sm">
-			<button class="btn btn-default" type="button" @click="new_entity">
-				<i class="glyphicon glyphicon-asterisk"></i>新增实体
-			</button>
-		</div>
-		<div class="pull-right btn-group-sm">
-			<button class="btn btn-default full-btn" type="button" @click="isFull^=1">
+		<div class="btn-group btn-group-sm pull-right">
+			<button class="btn btn-default" @click="new_entity">新增实体</button>		
+			<button class="btn btn-default" data-toggle="dropdown" >列选择</button>
+			<ul class="dropdown-menu"> 
+				<li v-for="attr in attributes" ><input type="checkbox" checked/>{{attr.desc}}</li>
+			</ul>
+			<button class="btn btn-default " @click="isFull^=1">
 				<i class="glyphicon" v-bind:class="isFull ? 'glyphicon-resize-full' : 'glyphicon-resize-small'"></i>
 			</button>
-		</div>
-		<div class="pull-right dropdown btn-group-sm">
-			<button class="btn btn-default" type="button" data-toggle="dropdown" >
-				<i class="glyphicon glyphicon-asterisk"></i>列选择
-			</button>
-			<ul class="dropdown-menu"> 
-				<li><input type="checkbox" value=true />{item}</li>
-			</ul>
 		</div>
 		<div class="clear-both"></div>
 	</div>
@@ -120,11 +112,11 @@ template : `
 		get_entity:function(pageNum){
 			var thiscomp = this;
 			$.get('/meta-data/entity.get', {'pageNum':pageNum}, GetCallback(function(data){
-				//thiscomp.attributes = []//data.attributes
+				thiscomp.attributes = data.attributes
 				thiscomp.items = data.items
-				thiscomp.$refs.entity_page.total=data.page.total;
-				thiscomp.$refs.entity_page.pageSize=data.page.limit;
-				thiscomp.$refs.entity_page.setPage(data.page.number);
+				thiscomp.$refs.entity_page.total=data.page.total
+				thiscomp.$refs.entity_page.pageSize=data.page.limit
+				thiscomp.$refs.entity_page.setPage(data.page.number)
 			}))
 		},
 		new_entity:function(){
@@ -208,10 +200,12 @@ const VueSubject = {
 	mounted : function(){
 		var thiscomp = this;
 		$.get('/meta-data/subject.get', GetCallback(function(data){
-			var treediv = $('#js-tree');
-			thiscomp.jstree = new JsTree(treediv, data);
-			thiscomp.jstree.init([ "state", "types", "wholerow", "dnd"]);
-			thiscomp.jstree.on_select_node = function(node) {}
+			var treediv = $('#js-tree')
+			var jstree = new JsTree(treediv, data)
+			jstree.search = $("#search_input")
+			jstree.on_select_node = function(node) {}
+			jstree.init([ "state", "types", "wholerow", "dnd", "search"])
+			thiscomp.jstree = jstree
 		}))
 	},
 	methods : {

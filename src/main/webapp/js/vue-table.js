@@ -5,7 +5,6 @@ Vue.component('vue-table', {
 	<thead>
 		<tr v-if="compAttributes.length">
 			<th v-for="attribute in compAttributes">{{attribute.desc}}</th>
-			
 			<th v-if="operation" class="text-center oper-th">{{operTitle}}</th>
 		</tr>
 		<tr v-else>

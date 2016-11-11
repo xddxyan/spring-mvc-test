@@ -69,8 +69,8 @@ JsTree.prototype.init = function(plugins, isOnReady) {
 			clearTimeout(to);
 		}
 		to = setTimeout(function() {
-			var v = search.val();
-			this.jstreeDiv.jstree(true).search(v);
+			var v = thisjstree.search.val();
+			thisjstree.get_instance().search(v);
 		}, 250);
 	});
 }
