@@ -52,6 +52,9 @@ Vue.component('vue-page', {
 			this.isFirstPage = this.curPage>1;
 			this.isEndPage = this.curPage<this.getTotalPageNum();
 			this.getPages();
+		},
+		refreshPage:function(){
+			this.gotoPage(this.curPage)
 		}
 	}
 })
