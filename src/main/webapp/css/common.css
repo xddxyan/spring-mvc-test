@@ -87,17 +87,6 @@
 .dl-lg2 dd {
   margin-left: 255px;
 }
-.fixed-table {
-  table-layout: fixed;
-}
-.load-table td {
-  cursor: pointer;
-}
-.auto-td {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
 .well .btn-block {
   max-width: 400px;
   margin: 0 auto;

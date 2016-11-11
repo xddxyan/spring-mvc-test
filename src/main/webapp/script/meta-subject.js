@@ -120,7 +120,7 @@ template : `
 		get_entity:function(pageNum){
 			var thiscomp = this;
 			$.get('/meta-data/entity.get', {'pageNum':pageNum}, GetCallback(function(data){
-				thiscomp.attributes = data.attributes
+				//thiscomp.attributes = []//data.attributes
 				thiscomp.items = data.items
 				thiscomp.$refs.entity_page.total=data.page.total;
 				thiscomp.$refs.entity_page.pageSize=data.page.limit;
