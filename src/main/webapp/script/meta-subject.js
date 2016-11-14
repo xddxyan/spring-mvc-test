@@ -68,9 +68,7 @@ Vue.component('entity-form', {
 });
 Vue.component('entity-tb', {
 template : `
-<div class="panel panel-default">
-	<div class="panel-heading">
-		<h3 class="panel-title pull-left">参数实体列表</h3>
+<div >
 		<div class="btn-group btn-group-sm pull-right">
 			<button class="btn btn-default" @click="new_entity">新增实体</button>		
 			<button class="btn btn-default" data-toggle="dropdown" >列选择</button>
@@ -82,13 +80,11 @@ template : `
 			</button>
 		</div>
 		<div class="clear-both"></div>
-	</div>
-	<div class="panel-body">
-		<vue-table :is-full="isFull" :comp-items="items" :comp-attributes="attributes"
+
+    	<vue-table :is-full="isFull" :comp-items="items" :comp-attributes="attributes"
 			:comp-update=modify_entity :comp-delete=delete_entity
 			oper-title="操作" v-bind:operation="6"></vue-table>
 		<vue-page ref="entity_page" v-bind:is-sm=true :get-data="get_entity"></vue-page>
-	</div>
 	
 	<vue-modal lg=true footer-hidden=true modal-id='new-entity' >
 		<h4 slot="title">新增实体：</h4>
@@ -188,7 +184,7 @@ const VueSubject = {
 	</div>
 	
 	<div class="col-md-9">
-	<entity-tb></entity-tb>
+	<vue-tabs ref="tabs" v-bind:tab-list="[{tab:'foo',active:true,id:'foo'},{tab:'bar',id:'bar'}]"></vue-tabs>
 	</div>
 
 </div>
@@ -203,7 +199,9 @@ const VueSubject = {
 			var treediv = $('#js-tree')
 			var jstree = new JsTree(treediv, data)
 			jstree.search = $("#search_input")
-			jstree.on_select_node = function(node) {}
+			jstree.on_select_node = function(node) {
+				thiscomp.$refs.tabs.addTab("实体列表","entity"+node.id,Vue.extend( {template: "<entity-tb></entity-tb>"}))
+			}
 			jstree.init([ "state", "types", "wholerow", "dnd", "search"])
 			thiscomp.jstree = jstree
 		}))

@@ -1,3 +1,43 @@
+Vue.component('vue-tabs', {
+	template : `
+<div>
+	<ul class="nav nav-tabs nav-tabs-sm">
+        <li v-bind:class="{active:tab.active}" v-for="(tab, index) in tabs">
+        	<a v-bind:href="'#'+tab.id" data-toggle="tab">
+        		{{tab.tab}}<button class="close" type="button" @click="tabs.splice(index,1)">x</button>
+        	</a>
+        </li>
+	</ul>
+	<div class="tab-content padding-top15">
+		<div v-bind:class="{active:tab.active}" class="tab-pane" v-bind:id="tab.id" v-for="(tab, index) in tabs">
+			<div v-bind:is="tab.comp"></div>
+		</div>
+	</div>
+</div>
+`,
+	created : function(){ 
+		for(index in this.tabList)
+			this.addTab(this.tabList[index].tab,this.tabList[index].id,null)
+	},
+	props : { tabList : Array },
+	data : function(){
+		return {tabs : []}
+	},
+	methods : {
+		addTab:function(tab,id,comp){
+			for(index in this.tabs){
+				if(this.tabs[index].active)
+					this.tabs[index].active=false
+			}
+			var tab = {'tab':tab,active:true,'id':id, 'comp':comp}
+			this.addTab_(tab)
+		},
+		addTab_:function(tab){
+			this.tabs.push(tab)
+		}
+	}
+})
+
 Vue.component('vue-itemlist', {
 	template : `
 	<span>
