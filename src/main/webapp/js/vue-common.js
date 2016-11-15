@@ -2,14 +2,14 @@ Vue.component('vue-tabs', {
 	template : `
 <div>
 	<ul class="nav nav-tabs nav-tabs-sm">
-        <li v-bind:class="{active:tab.active}" v-for="(tab, index) in tabs">
+        <li v-for="(tab, index) in tabs">
         	<a v-bind:href="'#'+tab.id" data-toggle="tab">
-        		{{tab.tab}}<button class="close" type="button" @click="tabs.splice(index,1)">x</button>
+        		{{tab.tab}}<button class="close" type="button" @click="removetab_(index)">x</button>
         	</a>
         </li>
 	</ul>
 	<div class="tab-content padding-top15">
-		<div v-bind:class="{active:tab.active}" class="tab-pane" v-bind:id="tab.id" v-for="(tab, index) in tabs">
+		<div class="tab-pane" v-bind:id="tab.id" v-for="(tab, index) in tabs">
 			<div v-bind:is="tab.comp"></div>
 		</div>
 	</div>
@@ -21,19 +21,30 @@ Vue.component('vue-tabs', {
 	},
 	props : { tabList : Array },
 	data : function(){
-		return {tabs : []}
+		return {tabs : [], tabMap : {}}
 	},
 	methods : {
 		addTab:function(tab,id,comp){
-			for(index in this.tabs){
-				if(this.tabs[index].active)
-					this.tabs[index].active=false
-			}
-			var tab = {'tab':tab,active:true,'id':id, 'comp':comp}
+			var tab = {'tab':tab,'id':id, 'comp':comp}
 			this.addTab_(tab)
 		},
 		addTab_:function(tab){
+			if(this.tabMap[tab.id]){
+				return
+			}
+			this.tabMap[tab.id]=tab
 			this.tabs.push(tab)
+			var thiscomp = this
+			this.$nextTick(function () {
+				var el = thiscomp.$el.querySelector('#'+tab.id)
+				console.log(el)
+			})
+		},
+		removetab_:function(index){
+			var tabs = this.tabs
+			var id = tabs[index].id
+			delete this.tabMap[id]
+			tabs.splice(index,1)
 		}
 	}
 })
@@ -69,7 +80,7 @@ Vue.component('vue-well', {
 })
 
 Vue.component('vue-modal', {
-  template: `<div v-bind:id="modalId" class="modal fade" tabindex="-1" role="dialog">
+  template: `<div class="modal fade" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document" v-bind:class="{ 'modal-sm': sm, 'modal-lg': lg }">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -100,6 +111,14 @@ Vue.component('vue-modal', {
 	props : {sm:false,lg:false,footerHidden:false, modalTitle:String, modalId:String},
 	data : function(){
 		return {};
+	},
+	methods:{
+		show:function(){
+			$(this.$el).modal('show')
+		},
+		hide:function(){
+			$(this.$el).modal('hide')
+		}
 	}
 })
 

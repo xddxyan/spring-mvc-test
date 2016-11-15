@@ -86,13 +86,13 @@ template : `
 			oper-title="操作" v-bind:operation="6"></vue-table>
 		<vue-page ref="entity_page" v-bind:is-sm=true :get-data="get_entity"></vue-page>
 	
-	<vue-modal lg=true footer-hidden=true modal-id='new-entity' >
+	<vue-modal lg=true footer-hidden=true ref='new_entity' >
 		<h4 slot="title">新增实体：</h4>
 		<div slot="body">
 			<entity-form :on-submit="new_entity_post"></entity-form>
 		</div>
 	</vue-modal>
-	<vue-modal lg=true footer-hidden=true modal-id='modify-entity' >
+	<vue-modal lg=true footer-hidden=true ref='modify_entity' >
 		<h4 slot="title">修改实体：</h4>
 		<div slot="body">
 			<entity-form :on-submit="modify_entity_post" ref="modify_entity_form"></entity-form>
@@ -116,10 +116,10 @@ template : `
 			}))
 		},
 		new_entity:function(){
-			$("#new-entity").modal('show')
+			this.$refs.new_entity.show()
 		},
 		modify_entity:function(item){
-			$("#modify-entity").modal('show')
+			this.$refs.modify_entity.show()
 			this.$refs.modify_entity_form.update(item)
 		},
 		delete_entity:function(item){
@@ -144,7 +144,7 @@ template : `
 					VueAlert.Warning(data)
 				}
 			})
-			$("#new-entity").modal('hide')
+			this.$refs.new_entity.hide()
 		},
 		modify_entity_post:function(event){
 			var thiscomp = this
@@ -157,7 +157,7 @@ template : `
 					VueAlert.Warning(data);
 				}
 			})
-			$("#modify-entity").modal('hide')
+			this.$refs.modify_entity.hide()
 		}
 	}
 })
@@ -200,7 +200,7 @@ const VueSubject = {
 			var jstree = new JsTree(treediv, data)
 			jstree.search = $("#search_input")
 			jstree.on_select_node = function(node) {
-				thiscomp.$refs.tabs.addTab("实体列表","entity"+node.id,Vue.extend( {template: "<entity-tb></entity-tb>"}))
+				thiscomp.$refs.tabs.addTab("实体列表","entity"+node.id,"entity-tb")
 			}
 			jstree.init([ "state", "types", "wholerow", "dnd", "search"])
 			thiscomp.jstree = jstree
