@@ -170,7 +170,7 @@ template : `
 const VueSubject = {
 	template: `
 <div class="row padding-top15">
-	<div class="left-panel col-md-3" >
+	<div class="left-panel col-md-3 padding-right-clear"" >
 	<div class="margin-between15 input-group input-group-sm">
       	<span class="input-group-btn">
 		<button type="button" class="btn btn-success " @click="create_node">
@@ -188,7 +188,7 @@ const VueSubject = {
 	<div class=" margin-between15" id="js-tree"></div>
 	</div>
 	
-	<div class="right-panel col-md-9">
+	<div class="right-panel col-md-9 padding-left-clear">
 	<div class="table-cell vertical-middle switch-btn">
 		<i class="glyphicon glyphicon-chevron-left"></i>
 	</div>
