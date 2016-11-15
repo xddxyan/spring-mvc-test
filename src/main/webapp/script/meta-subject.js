@@ -184,7 +184,7 @@ const VueSubject = {
 	</div>
 	
 	<div class="col-md-9">
-	<vue-tabs ref="tabs" v-bind:tab-list="[{tab:'foo',active:true,id:'foo'},{tab:'bar',id:'bar'}]"></vue-tabs>
+	<vue-tabs ref="tabs" ></vue-tabs>
 	</div>
 
 </div>
@@ -200,7 +200,7 @@ const VueSubject = {
 			var jstree = new JsTree(treediv, data)
 			jstree.search = $("#search_input")
 			jstree.on_select_node = function(node) {
-				thiscomp.$refs.tabs.addTab("实体列表","entity"+node.id,"entity-tb")
+				thiscomp.$refs.tabs.addTab("实体列表","entity"+node.id,"<entity-tb></entity-tb>")
 			}
 			jstree.init([ "state", "types", "wholerow", "dnd", "search"])
 			thiscomp.jstree = jstree

@@ -9,17 +9,13 @@ Vue.component('vue-tabs', {
         </li>
 	</ul>
 	<div class="tab-content padding-top15">
-		<div class="tab-pane" v-bind:id="tab.id" v-for="(tab, index) in tabs">
+		<div v-if="withTag" class="tab-pane" v-bind:id="tab.id" v-for="(tab, index) in tabs">
 			<div v-bind:is="tab.comp"></div>
 		</div>
 	</div>
 </div>
 `,
-	created : function(){ 
-		for(index in this.tabList)
-			this.addTab(this.tabList[index].tab,this.tabList[index].id,null)
-	},
-	props : { tabList : Array },
+	props: {withTag:Boolean},
 	data : function(){
 		return {tabs : [], tabMap : {}}
 	},
@@ -34,10 +30,16 @@ Vue.component('vue-tabs', {
 			}
 			this.tabMap[tab.id]=tab
 			this.tabs.push(tab)
+			
+			var Comp = Vue.extend({template: "<div class='tab-pane' id='"+tab.id+"' >"+tab.comp+"</div>"})
+			var comp = new Comp().$mount()
+			var content = this.$el.querySelector(".tab-content")
+			$(content).append(comp.$el)
+			
 			var thiscomp = this
 			this.$nextTick(function () {
-				var el = thiscomp.$el.querySelector('#'+tab.id)
-				console.log(el)
+				var a = thiscomp.$el.querySelector("a[href='#"+tab.id+"']")
+				$(a).tab('show')
 			})
 		},
 		removetab_:function(index){
@@ -45,6 +47,9 @@ Vue.component('vue-tabs', {
 			var id = tabs[index].id
 			delete this.tabMap[id]
 			tabs.splice(index,1)
+			
+			var content = this.$el.querySelector("#"+id)
+			$(content).remove()
 		}
 	}
 })
