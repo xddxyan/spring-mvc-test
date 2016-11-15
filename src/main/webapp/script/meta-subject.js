@@ -74,9 +74,9 @@ template : `
 		v-bind:is-sm=true :get-data="get_entity"></vue-page>
 	<div class="btn-group btn-group-sm pull-right">
 		<button class="btn btn-default" @click="new_entity">新增实体</button>		
-		<button class="btn btn-default" data-toggle="dropdown" >列选择</button>
+		<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" ><i class="glyphicon glyphicon-th icon-th"></i><span class="caret"></span></button>
 		<ul class="dropdown-menu"> 
-			<li v-for="attr in attributes" ><input type="checkbox" checked/>{{attr.desc}}</li>
+			<li v-for="attr in attributes" @click.stop="toggleColumn"><label><input type="checkbox" checked/>{{attr.desc}}</label></li>
 		</ul>
 		<button class="btn btn-default " @click="isFull^=1">
 			<i class="glyphicon" v-bind:class="isFull ? 'glyphicon-resize-full' : 'glyphicon-resize-small'"></i>
@@ -161,6 +161,8 @@ template : `
 				}
 			})
 			this.$refs.modify_entity.hide()
+		},
+		toggleColumn:function(e){
 		}
 	}
 })
