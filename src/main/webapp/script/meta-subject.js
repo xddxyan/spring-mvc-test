@@ -69,22 +69,25 @@ Vue.component('entity-form', {
 Vue.component('entity-tb', {
 template : `
 <div >
-		<div class="btn-group btn-group-sm pull-right">
-			<button class="btn btn-default" @click="new_entity">新增实体</button>		
-			<button class="btn btn-default" data-toggle="dropdown" >列选择</button>
-			<ul class="dropdown-menu"> 
-				<li v-for="attr in attributes" ><input type="checkbox" checked/>{{attr.desc}}</li>
-			</ul>
-			<button class="btn btn-default " @click="isFull^=1">
-				<i class="glyphicon" v-bind:class="isFull ? 'glyphicon-resize-full' : 'glyphicon-resize-small'"></i>
-			</button>
-		</div>
-		<div class="clear-both"></div>
 
-    	<vue-table :is-full="isFull" :comp-items="items" :comp-attributes="attributes"
-			:comp-update=modify_entity :comp-delete=delete_entity
-			oper-title="操作" v-bind:operation="6"></vue-table>
-		<vue-page ref="entity_page" v-bind:is-sm=true :get-data="get_entity"></vue-page>
+	<vue-page ref="entity_page" class="pull-left pg-no-margin"
+		v-bind:is-sm=true :get-data="get_entity"></vue-page>
+	<div class="btn-group btn-group-sm pull-right">
+		<button class="btn btn-default" @click="new_entity">新增实体</button>		
+		<button class="btn btn-default" data-toggle="dropdown" >列选择</button>
+		<ul class="dropdown-menu"> 
+			<li v-for="attr in attributes" ><input type="checkbox" checked/>{{attr.desc}}</li>
+		</ul>
+		<button class="btn btn-default " @click="isFull^=1">
+			<i class="glyphicon" v-bind:class="isFull ? 'glyphicon-resize-full' : 'glyphicon-resize-small'"></i>
+		</button>
+	</div>
+	<div class="clear-both"></div>
+
+	<vue-table :is-full="isFull" :comp-items="items" :comp-attributes="attributes"
+		:comp-update=modify_entity :comp-delete=delete_entity
+		oper-title="操作" v-bind:operation="6"></vue-table>
+		
 	
 	<vue-modal lg=true footer-hidden=true ref='new_entity' >
 		<h4 slot="title">新增实体：</h4>

@@ -152,6 +152,9 @@
   border-style: none;
   text-align: center;
 }
+.pg-no-margin .pagination {
+  margin: 0;
+}
 .pg-sp-input {
   padding: 4px !important;
 }
