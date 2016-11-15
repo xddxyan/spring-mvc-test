@@ -3,7 +3,7 @@ function subject_data(){
 	}
 }
 function entity_data(){
-	return {items:[], attributes:[], isFull:1,
+	return {items:[], attributes:[], isFull:1, 
 		entity_id:"", entity_name:"", database_id:"", schema:"", table_name:"", table_desc:""}
 }
 Vue.component('entity-form', {
@@ -170,11 +170,11 @@ template : `
 const VueSubject = {
 	template: `
 <div class="row padding-top15">
-	<div class="col-md-3">
+	<div v-bind:class="[showTree ? 'col-md-3' : 'hidden']">
 	<div class="margin-between15 input-group input-group-sm">
       	<span class="input-group-btn">
 		<button type="button" class="btn btn-success " @click="create_node">
-			<i class="glyphicon glyphicon-asterisk"></i>
+			<i class="glyphicon glyphicon-plus"></i>
 		</button>
 		<button type="button" class="btn btn-warning " @click="rename_node">
 			<i class="glyphicon glyphicon-pencil"></i>
@@ -182,13 +182,16 @@ const VueSubject = {
 		<button type="button" class="btn btn-danger " @click="delete_node">
 			<i class="glyphicon glyphicon-remove"></i>
 		</button>
+		<button type="button" class="btn btn-info " @click="showTree^=1">
+			<i class="glyphicon glyphicon-chevron-left"></i>
+		</button>
 		</span>
 		<input type="text" value="" id="search_input" placeholder="Search" class="form-control"/>
 	</div>
 	<div class=" margin-between15" id="js-tree"></div>
 	</div>
 	
-	<div class="col-md-9">
+	<div v-bind:class="[showTree ? 'col-md-9' : 'col-md-12']">
 	<vue-tabs ref="tabs" ></vue-tabs>
 	</div>
 
