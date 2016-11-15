@@ -59,7 +59,7 @@
 	</servlet>
 	<!-- servlet配置 -->
 	<session-config>
-		<session-timeout>10</session-timeout>
+		<session-timeout>120</session-timeout>
 	</session-config>
 	<!-- servlet映射 filter中url组装为/app/...后servlet处理-->
 	<servlet-mapping>

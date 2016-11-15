@@ -4,7 +4,7 @@ Vue.component('vue-tabs', {
 	<ul class="nav nav-tabs nav-tabs-sm">
         <li v-bind:class="{active:tab.active}" v-for="(tab, index) in tabs">
         	<a v-bind:href="'#'+tab.id" data-toggle="tab">
-        		{{tab.tab}}<button class="close" type="button" @click="tabs.splice(index,1)">x</button>
+        		{{tab.tab}}<button class="close" type="button" @click="removetab_(index)">x</button>
         	</a>
         </li>
 	</ul>
@@ -21,19 +21,38 @@ Vue.component('vue-tabs', {
 	},
 	props : { tabList : Array },
 	data : function(){
-		return {tabs : []}
+		return {tabs : [], tabMap : {}}
 	},
 	methods : {
-		addTab:function(tab,id,comp){
-			for(index in this.tabs){
-				if(this.tabs[index].active)
-					this.tabs[index].active=false
+		resetTabs:function(){
+			var tabs = this.tabs
+			for(idx in tabs){
+				if(tabs[idx].active)
+					tabs[idx].active=false
 			}
+		},
+		addTab:function(tab,id,comp){
 			var tab = {'tab':tab,active:true,'id':id, 'comp':comp}
 			this.addTab_(tab)
 		},
 		addTab_:function(tab){
+			this.resetTabs()
+			if(this.tabMap[tab.id]){
+				this.tabMap[tab.id].active=true
+				return
+			}
+			this.tabMap[tab.id]=tab
 			this.tabs.push(tab)
+		},
+		removetab_:function(index){
+			var id = this.tabs[index].id
+			delete this.tabMap[id]
+			this.tabs.splice(index,1)
+			
+			if(index&&index<tabs.length)
+				tabs[index].active=true
+			else if(tabs.length)
+				tabs[0].active=true
 		}
 	}
 })
