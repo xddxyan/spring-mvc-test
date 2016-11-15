@@ -170,7 +170,7 @@ template : `
 const VueSubject = {
 	template: `
 <div class="row padding-top15">
-	<div v-bind:class="[showTree ? 'col-md-3' : 'hidden']">
+	<div class="left-panel col-md-3" >
 	<div class="margin-between15 input-group input-group-sm">
       	<span class="input-group-btn">
 		<button type="button" class="btn btn-success " @click="create_node">
@@ -182,17 +182,17 @@ const VueSubject = {
 		<button type="button" class="btn btn-danger " @click="delete_node">
 			<i class="glyphicon glyphicon-remove"></i>
 		</button>
-		<button type="button" class="btn btn-info " @click="showTree^=1">
-			<i class="glyphicon glyphicon-chevron-left"></i>
-		</button>
 		</span>
 		<input type="text" value="" id="search_input" placeholder="Search" class="form-control"/>
 	</div>
 	<div class=" margin-between15" id="js-tree"></div>
 	</div>
 	
-	<div v-bind:class="[showTree ? 'col-md-9' : 'col-md-12']">
-	<vue-tabs ref="tabs" ></vue-tabs>
+	<div class="right-panel col-md-9">
+	<div class="table-cell vertical-middle switch-btn">
+		<i class="glyphicon glyphicon-chevron-left"></i>
+	</div>
+	<vue-tabs ref="tabs" class="table-cell"></vue-tabs>
 	</div>
 
 </div>
@@ -213,6 +213,16 @@ const VueSubject = {
 			jstree.init([ "state", "types", "wholerow", "dnd", "search"])
 			thiscomp.jstree = jstree
 		}))
+		
+		var el = this.$el
+		var rp = el.querySelector(".right-panel")
+		var sb = el.querySelector(".switch-btn")
+		var lp = el.querySelector(".left-panel")
+		$(sb).click(function(){
+			$(rp).toggleClass('col-md-9 col-md-12')
+			$(lp).toggleClass('col-md-3 hidden')
+			$(this).find('i').toggleClass('glyphicon-chevron-left glyphicon-chevron-right')
+		})
 	},
 	methods : {
 		delete_node : function (){

@@ -1,5 +1,5 @@
 function index_data(){
-	return{'username':username,showTree:1
+	return{'username':username
 	}
 }
 
