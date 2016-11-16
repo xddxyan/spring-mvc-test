@@ -91,13 +91,13 @@ template : `
 		:comp-update=modify_entity :comp-delete=delete_entity
 		oper-title="操作" v-bind:operation="6"></vue-table>
 	
-	<vue-modal lg=true footer-hidden=true ref='new_entity' >
+	<vue-modal :lg="true" :footer-hidden="true" ref='new_entity' >
 		<h4 slot="title">新增实体：</h4>
 		<div slot="body">
 			<entity-form :on-submit="new_entity_post"></entity-form>
 		</div>
 	</vue-modal>
-	<vue-modal lg=true footer-hidden=true ref='modify_entity' >
+	<vue-modal :lg="true" :footer-hidden="true" ref='modify_entity' >
 		<h4 slot="title">修改实体：</h4>
 		<div slot="body">
 			<entity-form :on-submit="modify_entity_post" ref="modify_entity_form"></entity-form>
