@@ -113,7 +113,11 @@ Vue.component('vue-modal', {
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->`,
-	props : {sm:false,lg:false,footerHidden:false, modalTitle:String, modalId:String},
+	props : {
+		sm:{ type: Boolean, default: false},
+		lg:{ type: Boolean, default: false},
+		footerHidden:{ type: Boolean, default: false}, 
+		modalTitle:String, modalId:String},
 	data : function(){
 		return {};
 	},
@@ -139,7 +143,7 @@ Vue.component('vue-datepicker', {
 			thiscomp.date = e.timeStamp
 	    });
 	},
-	props:{sm:false, search:Function},
+	props:{sm: { type: Boolean, default: false}, search:Function},
 	data:function(){return {date:""}}
 })
 
