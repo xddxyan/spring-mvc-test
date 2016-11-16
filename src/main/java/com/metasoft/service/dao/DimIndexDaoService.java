@@ -3,7 +3,6 @@ package com.metasoft.service.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,19 +11,7 @@ import com.metasoft.model.metadata.DimIndex;
 import com.metasoft.model.mybatis.GenericDaoService;
 
 @Service
-public class DimIndexDaoService extends GenericDaoService<DimIndex> {
-
-	@Autowired
-	private DimIndexMapper mapper;
-	
-	@Override
-	public DimIndexMapper getMapper() {
-		return mapper;
-	}
-
-	public void setMapper(DimIndexMapper mapper) {
-		this.mapper = mapper;
-	}
+public class DimIndexDaoService extends GenericDaoService<DimIndex,DimIndexMapper> {
 
 	@Transactional
 	public void update(DimIndex s) {
@@ -50,11 +37,11 @@ public class DimIndexDaoService extends GenericDaoService<DimIndex> {
 
 	@Transactional
 	public void deleteCascade(String id) {
-		getMapper().deleteCascade(id);
+		mapper.deleteCascade(id);
 	}
 
 	public List<DimIndex> selectByIdAsc( int offset, int size) {
 		String condition = " order by "+super.getIdField()+" asc limit "+size+" offset "+offset;
-		return getMapper().select( condition, getTable());
+		return mapper.select( condition, getTable());
 	}
 }

@@ -4,7 +4,7 @@ Vue.component('vue-tabs', {
 	<ul class="nav nav-tabs nav-tabs-sm">
         <li v-for="(tab, index) in tabs">
         	<a v-bind:href="'#'+tab.id" data-toggle="tab">
-        		{{tab.tab}}<button class="close" type="button" @click="removetab_(index)">x</button>
+        		{{tab.tab}}<button class="close" type="button" @click="removetab_(index, $event)">x</button>
         	</a>
         </li>
 	</ul>
@@ -38,18 +38,26 @@ Vue.component('vue-tabs', {
 			
 			var thiscomp = this
 			this.$nextTick(function () {
-				var a = thiscomp.$el.querySelector("a[href='#"+tab.id+"']")
+				var a = thiscomp.$el.querySelector(".nav a[href='#"+tab.id+"']")
 				$(a).tab('show')
 			})
 		},
-		removetab_:function(index){
+		removetab_:function(index, event){
 			var tabs = this.tabs
 			var id = tabs[index].id
 			delete this.tabMap[id]
 			tabs.splice(index,1)
 			
-			var content = this.$el.querySelector("#"+id)
-			$(content).remove()
+			var li = $(event.target).parent().parent()
+			var neighbor = li.prev().length?li.prev():li.next()
+			var thiscomp = this
+			this.$nextTick(function () {
+				var content = thiscomp.$el.querySelector("#"+id)
+				if($(content).hasClass("active") && neighbor.length){
+					neighbor.find("a").tab('show')
+				}
+				$(content).remove()
+			})
 		}
 	}
 })

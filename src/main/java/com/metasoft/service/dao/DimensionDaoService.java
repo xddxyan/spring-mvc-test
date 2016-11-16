@@ -2,7 +2,6 @@ package com.metasoft.service.dao;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,19 +10,7 @@ import com.metasoft.model.metadata.Dimension;
 import com.metasoft.model.mybatis.GenericDaoService;
 
 @Service
-public class DimensionDaoService extends GenericDaoService<Dimension> {
-
-	@Autowired
-	private DimensionMapper mapper;
-	
-	@Override
-	public DimensionMapper getMapper() {
-		return mapper;
-	}
-
-	public void setMapper(DimensionMapper mapper) {
-		this.mapper = mapper;
-	}
+public class DimensionDaoService extends GenericDaoService<Dimension,DimensionMapper> {
 
 	@Transactional
 	public void update(Dimension s) {
@@ -49,6 +36,6 @@ public class DimensionDaoService extends GenericDaoService<Dimension> {
 
 	@Transactional
 	public void deleteCascade(String id) {
-		getMapper().deleteCascade(id);
+		mapper.deleteCascade(id);
 	}
 }

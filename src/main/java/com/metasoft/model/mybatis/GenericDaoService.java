@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.copycat.framework.Page;
 import org.copycat.framework.util.DbUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.metasoft.model.ForeignKey;
 
@@ -13,67 +14,67 @@ import com.metasoft.model.ForeignKey;
  * @author metasoft
  * Generic data accessing object
  * 通用数据访问对象
+ * make sure spring version is greater than 4.0 while Autowired in superclass
  * @param <T>
  */
-public abstract class GenericDaoService<T> {
+public abstract class GenericDaoService<T_DAO, T_MAPPER extends GenericMapper<T_DAO>> {
 	
-	private final Class<?> TypeOfTable;
+	@Autowired
+	protected T_MAPPER mapper;
+	private final Class<?> kDaoClass;
 
     public GenericDaoService() {
         Type superclass = getClass().getGenericSuperclass(); 
         ParameterizedType parameterized = (ParameterizedType) superclass;
-        // with nested generic types, this becomes a little more complicated
-        TypeOfTable = (Class<?>) parameterized.getActualTypeArguments()[0];
+        kDaoClass = (Class<?>) parameterized.getActualTypeArguments()[0];
     }
 	
-	public abstract GenericMapper<T> getMapper();
-	
 	public String getTable() {
-		return DbUtil.GetTable(TypeOfTable);
+		return DbUtil.GetTable(kDaoClass);
 	}
 
 	public String getIdField() {
-		return DbUtil.GetIdName(TypeOfTable);
+		return DbUtil.GetIdName(kDaoClass);
 	}
 
-	public void insert(T t) {
-		getMapper().insert(t);
+	public void insert(T_DAO t) {
+		mapper.insert(t);
 	}
 
-	public void update(T t) {
-		getMapper().update(t);
+	public void update(T_DAO t) {
+		mapper.update(t);
 	}
 
-	public T selectById(long id) {
-		return getMapper().selectByAutoId(id, getTable());
+	public T_DAO selectById(long id) {
+		return mapper.selectByAutoId(id, getTable());
 	}	
 
-	public List<T> selectByIdAsc( int offset, int size) {
+	public List<T_DAO> selectByIdAsc( int offset, int size) {
 		String condition = " order by "+getIdField()+" asc limit "+size+" offset "+offset;
-		return getMapper().select( condition, getTable());
+		return mapper.select( condition, getTable());
 	}
-	public List<T> selectPageByIdAsc( Page page) {
+	public List<T_DAO> selectPageByIdAsc( Page page) {
 		String condition = " order by "+getIdField()+" asc limit "+page.getLimit()+" offset "+page.getOffset();
-		page.setTotal(getMapper().count(null, getTable()));
-		return getMapper().select( condition, getTable());
+		page.setTotal(mapper.count(null, getTable()));
+		return mapper.select( condition, getTable());
 	}
-	public List<T> selectPageByIdDesc( Page page, String where) {
+	public List<T_DAO> selectPageByIdDesc( Page page, String where) {
 		StringBuilder condition = new StringBuilder().append(where==null?"":where).
 				append(" order by ").append(getIdField()).
 				append(" desc limit ").append(page.getLimit()).
 				append(" offset ").append(page.getOffset());
-		page.setTotal(getMapper().count(where, getTable()));
-		return getMapper().select( condition.toString(), getTable());
+		page.setTotal(mapper.count(where, getTable()));
+		return mapper.select( condition.toString(), getTable());
 	}
 
 	public void deleteByAutoId(long id) {
-		getMapper().deleteByAutoId(id, getTable());
+		mapper.deleteByAutoId(id, getTable());
 	}
 	public void deleteById(String id) {
-		getMapper().deleteById(id, getIdField(), getTable());
+		mapper.deleteById(id, getIdField(), getTable());
 	}
 	
 	public List<ForeignKey> foreignKey() {
-		return getMapper().foreignKey(getTable());
+		return mapper.foreignKey(getTable());
 	}
 }
