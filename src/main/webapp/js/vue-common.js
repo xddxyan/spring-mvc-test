@@ -127,6 +127,22 @@ Vue.component('vue-modal', {
 	}
 })
 
+Vue.component('vue-datepicker', {
+	template: 
+`<div class="input-group date" v-bind:class="{ 'input-group-sm' : sm}">
+	<input type="text" class="form-control" >
+	<span class="input-group-addon" v-if="search" @click="search(date)"><i class="glyphicon glyphicon-search"></i></span>
+</div>`,
+	mounted(){
+		var thiscomp = this
+		$(this.$el.querySelector("input")).datepicker({language: "zh-CN"}).on("changeDate", function(e) {
+			thiscomp.date = e.timeStamp
+	    });
+	},
+	props:{sm:false, search:Function},
+	data:function(){return {date:""}}
+})
+
 function VueDirective(){
 	Vue.directive('model', function (el, binding) {
 		if(binding.arg&&binding.arg=="ignore"){console.log(binding.arg);return}

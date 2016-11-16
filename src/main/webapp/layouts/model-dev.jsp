@@ -15,6 +15,8 @@
 	<script type="text/javascript" src="/plugins/vue-router.min.js"></script>
 	<script type="text/javascript" src="/plugins/jstree/jstree.min.js"></script>
 	<script type="text/javascript" src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript" src="/plugins/bootstrap-datepicker/locales/zh-CN.min.js"></script>
 	<script type="text/javascript" src="/plugins/lodash.min.js"></script>
 	
 	<script type="text/javascript" src="/js/meta-global.js"></script>
@@ -31,6 +33,7 @@
 	<script type="text/javascript" src="/script/meta-subject.js"></script>
 	
 	<link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
 	<link rel="stylesheet" href="/plugins/jstree/themes/default/style.min.css" />
 	<link rel="stylesheet" href="/css/common.css">
 	<link rel="icon" href="/image/favicon.ico" type="image/png" />

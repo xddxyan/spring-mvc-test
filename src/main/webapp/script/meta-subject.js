@@ -72,22 +72,24 @@ template : `
 
 	<vue-page ref="entity_page" class="pull-left pg-no-margin"
 		v-bind:is-sm=true :get-data="get_entity"></vue-page>
-	<div class="btn-group btn-group-sm pull-right">
-		<button class="btn btn-default" @click="new_entity">新增实体</button>		
-		<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" ><i class="glyphicon glyphicon-th icon-th"></i><span class="caret"></span></button>
-		<ul class="dropdown-menu"> 
-			<li v-for="attr in attributes" @click.stop="toggleColumn"><label><input type="checkbox" checked/>{{attr.desc}}</label></li>
-		</ul>
-		<button class="btn btn-default " @click="isFull^=1">
-			<i class="glyphicon" v-bind:class="isFull ? 'glyphicon-resize-full' : 'glyphicon-resize-small'"></i>
-		</button>
+	<div class="pull-right form-inline">
+		<vue-datepicker :sm="true" :search="getby_date"></vue-datepicker>&nbsp
+		<div class="btn-group btn-group-sm">
+			<button class="btn btn-default" @click="new_entity">新增实体</button>	
+			<button class="btn btn-default " @click="isFull^=1">
+				<i class="glyphicon" v-bind:class="isFull ? 'glyphicon-resize-full' : 'glyphicon-resize-small'"></i>
+			</button>
+			<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" ><i class="glyphicon glyphicon-th icon-th"></i><span class="caret"></span></button>
+			<ul class="dropdown-menu"> 
+				<li v-for="attr in attributes" @click.stop="toggleColumn"><label><input type="checkbox" checked/>{{attr.desc}}</label></li>
+			</ul>
+		</div>
 	</div>
 	<div class="clear-both"></div>
 
 	<vue-table :is-full="isFull" :comp-items="items" :comp-attributes="attributes"
 		:comp-update=modify_entity :comp-delete=delete_entity
 		oper-title="操作" v-bind:operation="6"></vue-table>
-		
 	
 	<vue-modal lg=true footer-hidden=true ref='new_entity' >
 		<h4 slot="title">新增实体：</h4>
@@ -117,6 +119,9 @@ template : `
 				thiscomp.$refs.entity_page.pageSize=data.page.limit
 				thiscomp.$refs.entity_page.setPage(data.page.number)
 			}))
+		},
+		getby_date:function(date){
+			alert(date)
 		},
 		new_entity:function(){
 			this.$refs.new_entity.show()
@@ -208,7 +213,7 @@ const VueSubject = {
 			var jstree = new JsTree(treediv, data)
 			jstree.search = $("#search_input")
 			jstree.on_select_node = function(node) {
-				thiscomp.$refs.tabs.addTab("实体列表","entity"+node.id,"<entity-tb></entity-tb>")
+				thiscomp.$refs.tabs.addTab("实体列表-"+node.text,"entity"+node.id,"<entity-tb></entity-tb>")
 			}
 			jstree.init([ "state", "types", "wholerow", "dnd", "search"])
 			thiscomp.jstree = jstree
