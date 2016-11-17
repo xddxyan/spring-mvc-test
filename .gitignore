@@ -1,8 +1,8 @@
-/target/
+**/target/
 /.settings/
 *.DS_Store
 *.zip
-.project
-.classpath
+*.project
+*.classpath
 #**/plugins/*
 
