@@ -1,0 +1,10 @@
+mvn archetype:create -DgroupId=com.codechiev -DartifactId=data-analysis
+cd data-analysis/
+
+mvn archetype:create -DgroupId=com.codechiev.core -DartifactId=sd-core
+mvn archetype:create -DgroupId=com.codechiev.test -DartifactId=sd-test
+mvn archetype:create -DgroupId=com.codechiev.model -DartifactId=sd-model
+mvn archetype:create -DgroupId=com.codechiev.rpc -DartifactId=sd-rpc
+
+mvn install
+mvn eclipse:eclipse
