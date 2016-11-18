@@ -1,6 +1,7 @@
 **/target/
 /.settings/
 *.DS_Store
+*.prefs
 *.zip
 *.project
 *.classpath
