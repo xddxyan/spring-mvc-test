@@ -39,6 +39,7 @@ public class JettyServer {
 	private Server server = new Server();
 	private int port;
 	private String host;
+	private String domain;
 
 	{
 		System.setProperty("spring.profiles.active", "development");
@@ -81,8 +82,8 @@ public class JettyServer {
 		http.setIdleTimeout(30000);
 
 		WebAppContext webAppContext = new WebAppContext();
-		webAppContext.setDescriptor("src/test/resources/web.xml");//servlet xml配置
-		webAppContext.setContextPath("/");
+		webAppContext.setDescriptor("src/main/webapp/WEB-INF/web.xml");//servlet xml配置
+		webAppContext.setContextPath(domain);
 		webAppContext.setWar("src/main/webapp");//根目录
 		webAppContext.getInitParams().put(parameter, "false");
 		webAppContext.setAttribute(attribute, regex);
@@ -111,5 +112,9 @@ public class JettyServer {
 
 	private void stop() throws Exception {
 		server.stop();
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
 	}
 }
