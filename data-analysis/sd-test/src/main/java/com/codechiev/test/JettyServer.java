@@ -37,9 +37,10 @@ public class JettyServer {
 	private static String parameter = "org.eclipse.jetty.servlet.Default.useFileMappedBuffer";
 	private static String regex = ".*/jstl-[^/]*\\.jar$|.*/spring-webmvc-[^/]*\\.jar$|.*/sitemesh-[^/]*\\.jar$";
 	private Server server = new Server();
-	private int port;
+	private int port=8080;
 	private String host;
-	private String domain;
+	private String domain="/";
+	private String webapp="src/main/webapp";
 
 	{
 		System.setProperty("spring.profiles.active", "development");
@@ -73,6 +74,7 @@ public class JettyServer {
 				break;
 			}
 		}
+		server.join();
 	}
 
 	private void start() throws Exception {
@@ -82,9 +84,8 @@ public class JettyServer {
 		http.setIdleTimeout(30000);
 
 		WebAppContext webAppContext = new WebAppContext();
-		webAppContext.setDescriptor("src/main/webapp/WEB-INF/web.xml");//servlet xml配置
 		webAppContext.setContextPath(domain);
-		webAppContext.setWar("src/main/webapp");//根目录
+		webAppContext.setWar(webapp);//web资源路径
 		webAppContext.getInitParams().put(parameter, "false");
 		webAppContext.setAttribute(attribute, regex);
 
@@ -116,5 +117,9 @@ public class JettyServer {
 
 	public void setDomain(String domain) {
 		this.domain = domain;
+	}
+
+	public void setWebapp(String webapp) {
+		this.webapp = webapp;
 	}
 }
