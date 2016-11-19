@@ -16,7 +16,7 @@ func_compile()
 #-am, --also-make
 #        If project list is specified, also build projects required by the list
 	rm -Rf sd-model/target
-	mvn install -pl sd-model -am war:war
+	mvn install -pl sd-model war:war #-am
 }
 
 func_deploy()
