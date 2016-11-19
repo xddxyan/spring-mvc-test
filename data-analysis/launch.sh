@@ -15,7 +15,7 @@ func_compile()
 #        Build specified reactor projects instead of all projects
 #-am, --also-make
 #        If project list is specified, also build projects required by the list
-	rm -Rf target
+	rm -Rf sd-model/target
 	mvn install -pl sd-model -am war:war
 }
 

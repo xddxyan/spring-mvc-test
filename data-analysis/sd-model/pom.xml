@@ -16,7 +16,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<sitemesh.version>2.4.2</sitemesh.version>
-		<webapp.root>${basedir}/../webapp</webapp.root>
+		<webapp.root>${project.parent.basedir}/webapp</webapp.root>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -86,11 +86,11 @@
 		</dependency>
 		<!-- jstl -->
 		<dependency>
-		     <groupId>jstl</groupId>
-		     <artifactId>jstl</artifactId>
-		     <version>1.2</version>
-		     <!-- <scope>provided</scope> -->
-		 </dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+			<!-- <scope>provided</scope> -->
+		</dependency>
 
 		<!-- spring upload -->
 		<dependency>
@@ -111,7 +111,7 @@
 			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<finalName>ROOT</finalName>
 		<plugins>
@@ -146,6 +146,20 @@
 							</includes>
 						</resource>
 					</webResources>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+			        <linkedResources>
+			            <linkedResource>
+			            	<name>webapp</name>
+			            	<type>2</type>
+			                <location>PARENT-1-PROJECT_LOC/webapp</location>
+			            </linkedResource>
+					</linkedResources>
 				</configuration>
 			</plugin>
 		</plugins>
