@@ -45,8 +45,8 @@ public class ApplicationFilter implements Filter {
 			request.setAttribute("contextPath", contextPath);
 			request.setAttribute("requestURL", requestURL);
 			request.setCharacterEncoding(Constant.kCharset);
-			//由servlet-mapping中的app sevelt处理 , 然后将请求派送给interceptor
-			servletContext.getRequestDispatcher("/app" + url).forward(request,servletResponse);
+			//将请求交给 servlet处理 , 然后servlet派送给interceptor
+			servletContext.getRequestDispatcher("/servlet1" + url).forward(request,servletResponse);
 		} else {
 			//继续过滤
 			filterChain.doFilter(servletRequest, servletResponse);

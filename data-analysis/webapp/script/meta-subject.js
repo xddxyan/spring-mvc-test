@@ -69,10 +69,11 @@ Vue.component('entity-form', {
 Vue.component('entity-tb', {
 template : `
 <div >
-
+	<div>
 	<vue-page ref="entity_page" class="pull-left pg-no-margin"
 		v-bind:is-sm=true :get-data="get_entity"></vue-page>
 	<div class="pull-right form-inline">
+		<vue-filter :sm="true"></vue-filter>
 		<vue-datepicker :sm="true" :search="getby_date"></vue-datepicker>&nbsp
 		<div class="btn-group btn-group-sm">
 			<button class="btn btn-default" @click="new_entity">新增实体</button>	
@@ -86,6 +87,7 @@ template : `
 		</div>
 	</div>
 	<div class="clear-both"></div>
+	</div>
 
 	<vue-table :is-full="isFull" :comp-items="items" :comp-attributes="attributes"
 		:comp-update=modify_entity :comp-delete=delete_entity
@@ -175,36 +177,39 @@ template : `
 const VueSubject = {
 	template: `
 <div class="row padding-top15">
-	<div class="left-panel col-md-3 padding-right-clear"" >
-	<div class="margin-between15 input-group input-group-sm">
-      	<span class="input-group-btn">
-		<button type="button" class="btn btn-success " @click="create_node">
-			<i class="glyphicon glyphicon-plus"></i>
-		</button>
-		<button type="button" class="btn btn-warning " @click="rename_node">
-			<i class="glyphicon glyphicon-pencil"></i>
-		</button>
-		<button type="button" class="btn btn-danger " @click="delete_node">
-			<i class="glyphicon glyphicon-remove"></i>
-		</button>
-		</span>
-		<input type="text" value="" id="search_input" placeholder="Search" class="form-control"/>
-	</div>
-	<div class=" margin-between15" id="js-tree"></div>
+	<div class="padding-right-clear left-panel col-md-3">
+		<div class="table-cell panel-inner" >
+		<div class="margin-between15 input-group input-group-sm">
+	      	<span class="input-group-btn">
+			<button type="button" class="btn btn-success " @click="create_node">
+				<i class="glyphicon glyphicon-plus"></i>
+			</button>
+			<button type="button" class="btn btn-warning " @click="rename_node">
+				<i class="glyphicon glyphicon-pencil"></i>
+			</button>
+			<button type="button" class="btn btn-danger " @click="delete_node">
+				<i class="glyphicon glyphicon-remove"></i>
+			</button>
+			</span>
+			<input type="text" value="" id="search_input" placeholder="Search" class="form-control"/>
+		</div>
+		<div class=" margin-between15" id="js-tree"></div>
+		</div>
+		<div class="table-cell vertical-middle switch-btn">
+			<i class="glyphicon glyphicon-chevron-left"></i>
+		</div>
 	</div>
 	
 	<div class="right-panel col-md-9 padding-left-clear">
-	<div class="table-cell vertical-middle switch-btn">
-		<i class="glyphicon glyphicon-chevron-left"></i>
-	</div>
-	<vue-tabs ref="tabs" class="table-cell"></vue-tabs>
+	<vue-tabs ref="tabs" ></vue-tabs>
 	</div>
 
 </div>
 `,
+	mixins:[gMixin],
 	data : index_data ,
 	created : function() {
-		VueDirective()
+		this.VueDirective()
 	},
 	mounted : function(){
 		var thiscomp = this;
@@ -225,7 +230,9 @@ const VueSubject = {
 		var lp = el.querySelector(".left-panel")
 		$(sb).click(function(){
 			$(rp).toggleClass('col-md-9 col-md-12')
-			$(lp).toggleClass('col-md-3 hidden')
+			$(lp).toggleClass('col-md-3')
+			$(rp).toggleClass('padding-left-clear right-panel-padding')
+			$(lp).toggleClass('left-panel-hidden')
 			$(this).find('i').toggleClass('glyphicon-chevron-left glyphicon-chevron-right')
 		})
 	},

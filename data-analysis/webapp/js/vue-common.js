@@ -141,7 +141,7 @@ Vue.component('vue-modal', {
 
 Vue.component('vue-datepicker', {
 	template: 
-`<div class="input-group date" v-bind:class="{ 'input-group-sm' : sm}">
+`<div class="input-group date" v-bind:class="{'input-group-sm':sm}">
 	<input type="text" class="form-control" >
 	<span class="input-group-addon" v-if="search" @click="search(date)"><i class="glyphicon glyphicon-search"></i></span>
 </div>`,
@@ -151,13 +151,44 @@ Vue.component('vue-datepicker', {
 			thiscomp.date = e.timeStamp
 	    });
 	},
-	props:{sm: { type: Boolean, default: false}, search:Function},
+	props:{sm:{ type: Boolean, default: false}, search:Function},
 	data:function(){return {date:""}}
 })
 
-function VueDirective(){
-	Vue.directive('model', function (el, binding) {
-		if(binding.arg&&binding.arg=="ignore"){console.log(binding.arg);return}
-		el.name = binding.expression; 
-	});
+Vue.component('vue-filter',{
+	template:`
+	<div class="form-group">
+    <label ></label>
+    <input class="form-control" v-bind:class="{'input-sm':sm}" type="text" v-model:ignore="filter">
+	</div>`,
+	props:{ onSubmit:Function, debounce:{ type: Number, default: 1000}, sm:{ type: Boolean, default: false}},
+	data: function(){return {filter:''}},
+	methods: {
+		do_filter: _.debounce(function () {
+    		console.log("filtering")
+    	},1000)
+	},
+	watch:{
+		filter: function(data) {
+			this.filter = data;
+			this.do_filter();
+		}
+	}
+})
+
+var gMixin = {
+  methods: {
+    AbsUrl: function (url) {
+      return GetAbsUrl(url)
+    },
+    VueDirective : function(){
+    	Vue.directive('model', function (el, binding) {
+    		if(binding.arg&&binding.arg=="ignore"){console.log(binding.arg);return}
+    		el.name = binding.expression; 
+    	});
+    },
+	CheckSysAdmin : function(){return 1&gRoles},
+	CheckGuest : function(){return 2&gRoles},
+	CheckSysAdminOrTenant(){return gRoles & (1|2)} 
+  }
 }

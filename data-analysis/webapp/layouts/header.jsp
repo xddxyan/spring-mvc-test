@@ -4,4 +4,5 @@
 
 </div>
 <script type="text/javascript">
+	var gRoles = 1
 </script>

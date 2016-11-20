@@ -38,10 +38,13 @@
 			<router-link tag="li" active-class="active" to="/dimension"><a>维度</a></router-link>
 			<router-link tag="li" active-class="active" to="/indicator"><a>指标</a></router-link>
 			<router-link tag="li" active-class="active" to="/statement"><a>报表查询</a></router-link>
+			<router-link tag="li" to="" v-if="CheckSysAdmin()"><a>admin test</a></router-link>
+			<router-link tag="li" to="" v-if="CheckGuest()"><a>guest</a></router-link>
 		</ul>
 			<router-view ></router-view>
 		</div>
-		`
+		`,
+		mixins:[gMixin]
 	}).$mount('#vue-router')
 	</script>
 </body>
