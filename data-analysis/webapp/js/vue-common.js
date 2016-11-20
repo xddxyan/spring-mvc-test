@@ -25,7 +25,10 @@ Vue.component('vue-tabs', {
 			this.addTab_(tab)
 		},
 		addTab_:function(tab){
+			var thiscomp = this
 			if(this.tabMap[tab.id]){
+				var a = thiscomp.$el.querySelector(".nav a[href='#"+tab.id+"']")
+				$(a).tab('show')
 				return
 			}
 			this.tabMap[tab.id]=tab
@@ -36,7 +39,6 @@ Vue.component('vue-tabs', {
 			var content = this.$el.querySelector(".tab-content")
 			$(content).append(comp.$el)
 			
-			var thiscomp = this
 			this.$nextTick(function () {
 				var a = thiscomp.$el.querySelector(".nav a[href='#"+tab.id+"']")
 				$(a).tab('show')
@@ -157,10 +159,7 @@ Vue.component('vue-datepicker', {
 
 Vue.component('vue-filter',{
 	template:`
-	<div class="form-group">
-    <label ></label>
-    <input class="form-control" v-bind:class="{'input-sm':sm}" type="text" v-model:ignore="filter">
-	</div>`,
+    <input class="form-control" v-bind:class="{'input-sm':sm}" type="text" v-model:ignore="filter">`,
 	props:{ onSubmit:Function, debounce:{ type: Number, default: 1000}, sm:{ type: Boolean, default: false}},
 	data: function(){return {filter:''}},
 	methods: {

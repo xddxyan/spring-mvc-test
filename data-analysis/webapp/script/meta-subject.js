@@ -73,9 +73,14 @@ template : `
 	<vue-page ref="entity_page" class="pull-left pg-no-margin"
 		v-bind:is-sm=true :get-data="get_entity"></vue-page>
 	<div class="pull-right form-inline">
-		<vue-filter :sm="true"></vue-filter>
-		<vue-datepicker :sm="true" :search="getby_date"></vue-datepicker>&nbsp
-		<div class="btn-group btn-group-sm">
+		<div class="form-group">
+			<vue-filter :sm="true"></vue-filter>
+		</div>
+		<div class="form-group">
+			<vue-datepicker :sm="true" :search="getby_date"></vue-datepicker>
+		</div>
+		<div class="form-group">
+			<div class="btn-group btn-group-sm">
 			<button class="btn btn-default" @click="new_entity">新增实体</button>	
 			<button class="btn btn-default " @click="isFull^=1">
 				<i class="glyphicon" v-bind:class="isFull ? 'glyphicon-resize-full' : 'glyphicon-resize-small'"></i>
@@ -84,6 +89,7 @@ template : `
 			<ul class="dropdown-menu"> 
 				<li v-for="attr in attributes" @click.stop="toggleColumn"><label><input type="checkbox" checked/>{{attr.desc}}</label></li>
 			</ul>
+			</div>
 		</div>
 	</div>
 	<div class="clear-both"></div>
