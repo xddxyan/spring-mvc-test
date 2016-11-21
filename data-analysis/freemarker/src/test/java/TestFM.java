@@ -9,10 +9,10 @@ import org.slf4j.LoggerFactory;
 import elements.GenBean;
 
 public class TestFM {
-	private static final String kDaoPkg = "com.metasoft.model.metadata";
-	private static final String kMapperPkg = "com.metasoft.model.mapper";
-	private static final String kDaoServicPkg = "com.metasoft.service.dao";
-	private static final String kSrcPath = "../../src/main/java/";
+	private static final String kDaoPkg = "com.codechiev.model.metadata";
+	private static final String kMapperPkg = "com.codechiev.model.mapper";
+	private static final String kDaoServicPkg = "com.codechiev.service.dao";
+	private static final String kSrcPath = "../sd-model/src/main/java/";
 	public List<GenBean> daos = new ArrayList<GenBean>();
 	public List<GenBean> mappers = new ArrayList<GenBean>();
 	
