@@ -151,7 +151,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.5.1</version>
+				<version>2.10</version><!-- make sure the version is the latest or it may not work as u expect! -->
 				<configuration>
 			        <linkedResources>
 			            <linkedResource>

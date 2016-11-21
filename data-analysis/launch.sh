@@ -1,7 +1,7 @@
 #export JAVA_HOME=/opt/jdk1.8.0_101
 #export PATH=$PATH:$JAVA_HOME/bin
-export M2_HOME=/c/ide/apache-maven-3.2.3/
-export PATH=$PATH:$M2_HOME/bin
+#export M2_HOME=/c/ide/apache-maven-3.2.3/
+#export PATH=$PATH:$M2_HOME/bin
 export TOMCAT_HOME=/opt/apache-tomcat-7.0.70
 export CATALINA_HOME=$TOMCAT_HOME
 export JAVA_OPTS="$JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"

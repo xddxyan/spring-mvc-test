@@ -5,6 +5,12 @@ mvn archetype:create -DgroupId=com.codechiev.core -DartifactId=sd-core
 mvn archetype:create -DgroupId=com.codechiev.test -DartifactId=sd-test
 mvn archetype:create -DgroupId=com.codechiev.model -DartifactId=sd-model
 mvn archetype:create -DgroupId=com.codechiev.rpc -DartifactId=sd-rpc
+#mvn archetype:create is deprecated in Maven 3.0.5 and beyond, as mentioned in the documentation, Use mvn archetype:generate instead:
+mvn archetype:generate -B -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.1 -DgroupId=com.codechiev -DartifactId=freemarker -Dversion=1.0-SNAPSHOT -Dpackage=com.codechiev.freemarker -DarchetypeCatalog=local -X
 
-mvn install
+#archetype generate在"Generating project in Batch mode"卡住
+#curl http://repo.maven.apache.org/maven2/archetype-catalog.xml>archetype-catalog.xml
+#mv archetype-catalog.xml ~/.m2/archetype-catalog.xml
+
+mvn install -Dmaven.test.skip=true 
 mvn eclipse:eclipse

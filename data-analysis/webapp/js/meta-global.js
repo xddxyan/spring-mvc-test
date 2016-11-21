@@ -41,34 +41,35 @@ function GetSha1(str){
 		return sha1.getHash("HEX")
 
 }
-//***js实用封装***//
-//cookie相关方法
+
 var CookieUtil = {
-	//设置cookie
-	SetCookie: function(name, value, iDay){
-		var oDate = new Date();
-		oDate.setDate(oDate.getDate + iDay);
-		document.cookie = name + "=" + value + ",expires =" + oDate;
+	// 设置cookie
+	SetCookie : function(name, value, expires) {
+		var future = new Date(new Date().getTime() + expires * 1000);
+		document.cookie = name + "=" + value + "; expires="
+				+ future.toUTCString();// console.log(document.cookie)// path=/"
 	},
-	//获取cookie
-	GetCookie: function(name){
-		var arr = document.cookie.split(";"); //注意是分号加一个空格
-		var i = 0;
-		for(i=0;i<arr.length;i++){
+	// 获取cookie
+	GetCookie : function(name) {
+		var arr = document.cookie.split("; "); // 注意是分号加一个空格
+		for ( var i in arr) {
 			var arr2 = arr[i].split("=");
-			if(arr2[0] == name){
+			if (arr2[0] == name) {
 				return arr2[1];
 			}
 		}
 		return "";
 	},
-	//删除cookie
-	RemoveCookie: function(name){
-		this.setCookie(name,"1",-1); //过期时间设置为-1，意思就是昨天就过期了
+	// 删除cookie
+	RemoveCookie : function(name) {
+		this.SetCookie(name, "1", -1); // 过期时间设置为-1，意思就是昨天就过期了
 	}
 }
 
-//***jQuery通用封装***//
+Date.prototype.simple = function() {
+	return this.toLocaleString()
+}
+
 //倒计时
 var CountDown = function(num,callback){
 	var s = num + 1;
