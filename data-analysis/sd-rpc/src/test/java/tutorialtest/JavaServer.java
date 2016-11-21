@@ -1,3 +1,4 @@
+package tutorialtest;
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements. See the NOTICE file
@@ -28,6 +29,7 @@ import org.apache.thrift.transport.TSSLTransportFactory.TSSLTransportParameters;
 
 // Generated code
 import tutorial.*;
+import tutorial.Calculator.Processor;
 import shared.*;
 
 import java.util.HashMap;

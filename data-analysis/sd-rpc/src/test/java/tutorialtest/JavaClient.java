@@ -1,3 +1,4 @@
+package tutorialtest;
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements. See the NOTICE file
@@ -19,6 +20,7 @@
 
 // Generated code
 import tutorial.*;
+import tutorial.Calculator.Client;
 import shared.*;
 
 import org.apache.thrift.TException;

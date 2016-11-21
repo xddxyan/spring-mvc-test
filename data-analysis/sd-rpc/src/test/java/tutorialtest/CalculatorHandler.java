@@ -1,3 +1,4 @@
+package tutorialtest;
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements. See the NOTICE file
@@ -17,13 +18,13 @@
  * under the License.
  */
 
-import org.apache.thrift.TException;
-
-// Generated code
-import tutorial.*;
-import shared.*;
-
 import java.util.HashMap;
+
+import shared.SharedStruct;
+import tutorial.Calculator;
+import tutorial.InvalidOperation;
+import tutorial.Work;
+import tutorial.Calculator.Iface;
 
 public class CalculatorHandler implements Calculator.Iface {
 

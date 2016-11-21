@@ -1,0 +1,2 @@
+Ihttp://www.apache.org/dyn/closer.cgi?path=/thrift/0.9.3/thrift-0.9.3.exe
+/d/Download/tools/thrift-0.9.3.exe -r --gen java test.thrift
